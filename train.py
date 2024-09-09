@@ -143,7 +143,7 @@ def train(
     wandb_project: str = "llm-driver",
     wandb_run_name: str = "",
     wandb_watch: str = "false",  # options: false | gradients | all
-    wandb_log_model: str = "true",  # options: false | true
+    wandb_log_model: str = "checkpoint",  # options: false | true
     resume_from_checkpoint: str = "models/weights/stage1_pretrained_model/",  # always resume from pre-finetuned model
     augment_times: int = 0,
     output_dir: Optional[str] = None,
