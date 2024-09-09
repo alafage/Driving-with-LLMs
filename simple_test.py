@@ -1,4 +1,4 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, BitsAndBytesConfig
 from utils.model_utils import load_llama_tokenizer, load_model
 
 
@@ -14,16 +14,15 @@ print("Loading model...")
 #         lora_target_modules=("q_proj", "k_proj", "v_proj", "o_proj"),
 #         resume_from_checkpoint="models/weights/stage2_with_pretrained/",
 #     )
-model = AutoModelForCausalLM.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", quantization_config=BitsAndBytesConfig(load_in_8bit=True))
 
 print("Model loaded.")
 
-model.print_trainable_parameters()  # Be more transparent about the % of trainable params.
+# model.print_trainable_parameters()  # Be more transparent about the % of trainable params.
 
 print("Loading tokenizer...")
 
 # Load tokenizer
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-# tokenizer = load_llama_tokenizer(model_name)
+tokenizer = load_llama_tokenizer(model_name)
 
 print("Tokenizer loaded.")
