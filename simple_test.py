@@ -14,7 +14,7 @@ print("Loading model...")
 #         lora_target_modules=("q_proj", "k_proj", "v_proj", "o_proj"),
 #         resume_from_checkpoint="models/weights/stage2_with_pretrained/",
 #     )
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", quantization_config=BitsAndBytesConfig(load_in_8bit=True))
+model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", quantization_config=BitsAndBytesConfig(load_in_8bit=True), local_files_only=True)
 
 print("Model loaded.")
 
