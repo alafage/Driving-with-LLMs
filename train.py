@@ -124,7 +124,7 @@ def eval_distance(all_pred, all_label, label_name, pattern):
 
 def train(
     # model/data params
-    base_model: str = "decapoda-research/llama-7b-hf",  # the only required argument
+    base_model: str = "baffo32/decapoda-research-llama-7B-hf",
     data_path: str = "data/vqa_train_10k.pkl",
     # training hyperparams
     batch_size: int = 128,
