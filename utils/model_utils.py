@@ -3,13 +3,13 @@ from typing import Tuple
 
 import torch
 from peft import LoraConfig, prepare_model_for_int8_training, set_peft_model_state_dict
-from transformers import GenerationConfig, LlamaTokenizer
+from transformers import GenerationConfig, LlamaTokenizer, BitsAndBytesConfig
 
 from models.vector_lm import LlamaForCausalLMVectorInput, VectorLMWithLoRA
 
 
 def load_llama_tokenizer(base_model):
-    tokenizer = LlamaTokenizer.from_pretrained(base_model, local_files_only=True)
+    tokenizer = LlamaTokenizer.from_pretrained(base_model)
     # Fix the decapoda-research tokenizer bug
     tokenizer.pad_token_id = 0
     tokenizer.bos_token_id = 1
@@ -57,11 +57,18 @@ def load_model(
     ), "Please specify a --base_model, e.g. --base_model='decapoda-research/llama-7b-hf'"
 
     # Initialize model
+    # llama_model = LlamaForCausalLMVectorInput.from_pretrained(
+    #     base_model,
+    #     load_in_8bit=load_in_8bit,
+    #     torch_dtype=torch.float16,
+    #     device_map=device_map,
+    # )
     llama_model = LlamaForCausalLMVectorInput.from_pretrained(
         base_model,
-        load_in_8bit=load_in_8bit,
+        load_in_8bit=BitsAndBytesConfig(load_in_8bit=True),
         torch_dtype=torch.float16,
         device_map=device_map,
+        local_files_only=True,
     )
     lora_config = LoraConfig(
         r=lora_r,
