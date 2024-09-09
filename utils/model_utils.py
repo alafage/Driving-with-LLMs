@@ -9,7 +9,7 @@ from models.vector_lm import LlamaForCausalLMVectorInput, VectorLMWithLoRA
 
 
 def load_llama_tokenizer(base_model):
-    tokenizer = LlamaTokenizer.from_pretrained(base_model)
+    tokenizer = LlamaTokenizer.from_pretrained(base_model, local_files_only=True)
     # Fix the decapoda-research tokenizer bug
     tokenizer.pad_token_id = 0
     tokenizer.bos_token_id = 1
