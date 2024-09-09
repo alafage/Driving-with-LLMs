@@ -68,7 +68,7 @@ def load_model(
         load_in_8bit=True,
         torch_dtype=torch.float16,
         device_map=device_map,
-        local_files_only=True,
+        # local_files_only=True,
     )
     lora_config = LoraConfig(
         r=lora_r,
