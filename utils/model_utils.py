@@ -59,7 +59,7 @@ def load_model(
     # Initialize model
     llama_model = LlamaForCausalLMVectorInput.from_pretrained(
         base_model,
-        load_in_8bit=load_in_8bit,
+        quantization_config=BitsAndBytesConfig(load_in_8bit=load_in_8bit),
         torch_dtype=torch.float16,
         device_map=device_map,
         local_files_only=True,
