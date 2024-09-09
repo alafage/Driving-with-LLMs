@@ -1,4 +1,4 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+from transformers import AutoModelForCausalLM, LlamaTokenizer, BitsAndBytesConfig
 from utils.model_utils import load_llama_tokenizer, load_model
 
 
@@ -23,7 +23,7 @@ model_name = "baffo32/decapoda-research-llama-7B-hf"
 print("Loading tokenizer...")
 
 # Load tokenizer
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer = LlamaTokenizer.from_pretrained(model_name)
 # tokenizer = load_llama_tokenizer(model_name)
 
 print("Tokenizer loaded.")
