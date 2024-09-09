@@ -57,18 +57,12 @@ def load_model(
     ), "Please specify a --base_model, e.g. --base_model='decapoda-research/llama-7b-hf'"
 
     # Initialize model
-    # llama_model = LlamaForCausalLMVectorInput.from_pretrained(
-    #     base_model,
-    #     load_in_8bit=load_in_8bit,
-    #     torch_dtype=torch.float16,
-    #     device_map=device_map,
-    # )
     llama_model = LlamaForCausalLMVectorInput.from_pretrained(
         base_model,
-        load_in_8bit=True,
+        load_in_8bit=load_in_8bit,
         torch_dtype=torch.float16,
         device_map=device_map,
-        # local_files_only=True,
+        local_files_only=True,
     )
     lora_config = LoraConfig(
         r=lora_r,
