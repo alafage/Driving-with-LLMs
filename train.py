@@ -80,44 +80,44 @@ class TrainerWithGeneration(transformers.Seq2SeqTrainer):
             return eval_output
 
         # Log the predictions
-        if wandb.run is None:
-            self.log({"i": None})  # dummy log to initialize wandb
-        images = log_txt_as_img((512, 512), [all_pred[0], all_label[0]])
-        wandb.log({"val_logits": wandb.Image(np.concatenate(images, axis=1))})
-        wandb.log(
-            {
-                "val_results": wandb.Table(
-                    columns=["pred", "label"],
-                    data=[list(pair) for pair in zip(all_pred, all_label)],
-                )
-            }
-        )
+        # if wandb.run is None:
+        #     self.log({"i": None})  # dummy log to initialize wandb
+        # images = log_txt_as_img((512, 512), [all_pred[0], all_label[0]])
+        # wandb.log({"val_logits": wandb.Image(np.concatenate(images, axis=1))})
+        # wandb.log(
+        #     {
+        #         "val_results": wandb.Table(
+        #             columns=["pred", "label"],
+        #             data=[list(pair) for pair in zip(all_pred, all_label)],
+        #         )
+        #     }
+        # )
 
-        # Evaluate traffic light
-        tl_accuracy = eval_tl(all_pred, all_label)
-        if tl_accuracy is not None:
-            print(f"TL accuracy: {tl_accuracy}")
-        else:
-            print("No traffic light states found in predictions.")
-        wandb.log({"tl_accuracy": tl_accuracy})
-        eval_distance(
-            all_pred, all_label, "tl_distance", r"It is (\d+(?:\.\d+)?)m ahead"
-        )
+        # # Evaluate traffic light
+        # tl_accuracy = eval_tl(all_pred, all_label)
+        # if tl_accuracy is not None:
+        #     print(f"TL accuracy: {tl_accuracy}")
+        # else:
+        #     print("No traffic light states found in predictions.")
+        # wandb.log({"tl_accuracy": tl_accuracy})
+        # eval_distance(
+        #     all_pred, all_label, "tl_distance", r"It is (\d+(?:\.\d+)?)m ahead"
+        # )
 
-        # Evaluate perceptions
-        eval_distance(
-            all_pred, all_label, "car_error", r"observing (\d+(?:\.\d+)?) cars"
-        )
-        eval_distance(
-            all_pred, all_label, "ped_error", r"and (\d+(?:\.\d+)?) pedestrians"
-        )
+        # # Evaluate perceptions
+        # eval_distance(
+        #     all_pred, all_label, "car_error", r"observing (\d+(?:\.\d+)?) cars"
+        # )
+        # eval_distance(
+        #     all_pred, all_label, "ped_error", r"and (\d+(?:\.\d+)?) pedestrians"
+        # )
 
-        # Evaluate actions
-        average_error_lon, average_error_lat = eval_action(all_pred, all_label)
-        if average_error_lon is not None and average_error_lat is not None:
-            print(f"Average control error: {average_error_lon}, {average_error_lat}")
-            wandb.log({"control_error_lon": average_error_lon})
-            wandb.log({"control_error_lat": average_error_lat})
+        # # Evaluate actions
+        # average_error_lon, average_error_lat = eval_action(all_pred, all_label)
+        # if average_error_lon is not None and average_error_lat is not None:
+        #     print(f"Average control error: {average_error_lon}, {average_error_lat}")
+        #     wandb.log({"control_error_lon": average_error_lon})
+        #     wandb.log({"control_error_lat": average_error_lat})
         return eval_output
 
 
