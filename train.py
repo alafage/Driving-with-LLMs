@@ -3,7 +3,7 @@ import datetime
 import os
 import tempfile
 from typing import List, Optional, Tuple
-
+import pickle
 import fire
 import numpy as np
 import transformers
@@ -66,6 +66,15 @@ class TrainerWithGeneration(transformers.Seq2SeqTrainer):
         all_label = decode_generation_seqeunces(self.tokenizer, eval_output.label_ids)
         print("all_pred", all_pred)
         print("all_label", all_label)
+
+        with open("data/eval_data.pkl", "wb") as f:
+            pickle.dump(
+                {
+                    "all_pred": all_pred,
+                    "all_label": all_label,
+                },
+                f,
+            )
 
         if self.args.process_index != 0:
             return eval_output
