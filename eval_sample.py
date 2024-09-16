@@ -1,6 +1,6 @@
 import pickle
 from utils.model_utils import load_llama_tokenizer, load_model
-from utils.training_utils import generate_and_tokenize_prompt
+from utils.training_utils import generate_and_tokenize_prompt, decode_generation_seqeunces
 import torch
 
 
@@ -51,6 +51,8 @@ tokenized_input["labels"] = tokenized_input["labels"].unsqueeze(0)
 
 outputs = trainer._wrap_model(model)(**tokenized_input)
 
-print(outputs.keys())
+print(f"Logits: {outputs['loss']['logits']}")
 
-print(outputs)
+prediction = decode_generation_seqeunces(tokenizer, outputs["loss"]["logits"])
+
+print(f"Prediction: {prediction}")
