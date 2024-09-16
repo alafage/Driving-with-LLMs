@@ -36,6 +36,7 @@ trainer = Seq2SeqTrainer(
         args=Seq2SeqTrainingArguments(
             output_dir="./eval_output",
             generation_config=model.generation_config,
+            fp16=True,
         )
 )
 
