@@ -138,6 +138,8 @@ class LlamaForCausalLMVectorInput(LlamaForCausalLM):
         #     print(shift_logits.dtype, shift_labels.dtype)
         #     loss = loss_fct(shift_logits, shift_labels)
 
+        print("Output", outputs[1:])
+
         if not return_dict:
             output = (logits,) + outputs[1:]
             return (loss,) + output if loss is not None else output
