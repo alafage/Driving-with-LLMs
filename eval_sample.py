@@ -49,7 +49,7 @@ tokenized_input["attention_mask"] = tokenized_input["attention_mask"].unsqueeze(
 tokenized_input["labels"] = tokenized_input["labels"].unsqueeze(0)
 
 
-outputs = trainer._wrap_model(model)(**tokenized_input)
+outputs = trainer._wrap_model(model)(**tokenized_input, return_dict=True)
 
 print(outputs.keys())
 
