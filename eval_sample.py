@@ -51,3 +51,5 @@ tokenized_input["labels"] = tokenized_input["labels"].unsqueeze(0)
 outputs = trainer._wrap_model(model)(**tokenized_input)
 
 print(outputs.keys())
+
+print(outputs)
