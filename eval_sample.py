@@ -1,6 +1,7 @@
 import pickle
 from utils.model_utils import load_llama_tokenizer, load_model
 from utils.training_utils import generate_and_tokenize_prompt
+import torch
 
 
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
@@ -39,6 +40,13 @@ trainer = Seq2SeqTrainer(
             fp16=True,
         )
 )
+
+for key in ['input_ids', 'attention_mask', 'labels', 'user_input_ids', 'user_attention_mask', 'route_descriptors', 'vehicle_descriptors', 'pedestrian_descriptors', 'ego_vehicle_descriptor']:
+    tokenized_input[key] = torch.tensor(tokenized_input[key], device=model.device)
+
+tokenized_input["input_ids"] = tokenized_input["input_ids"].unsqueeze(0)
+tokenized_input["attention_mask"] = tokenized_input["attention_mask"].unsqueeze(0)
+tokenized_input["labels"] = tokenized_input["labels"].unsqueeze(0)
 
 outputs = trainer._wrap_model(model)(**tokenized_input)
 
