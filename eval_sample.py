@@ -53,6 +53,6 @@ outputs = trainer._wrap_model(model)(**tokenized_input)
 
 print(f"Logits: {outputs['loss']['logits']}")
 
-prediction = decode_generation_seqeunces(tokenizer, outputs["loss"]["logits"].detach().cpu())
+prediction = decode_generation_seqeunces(tokenizer, outputs["loss"]["logits"][0].detach().cpu())
 
 print(f"Prediction: {prediction}")
