@@ -135,6 +135,7 @@ class LlamaForCausalLMVectorInput(LlamaForCausalLM):
             shift_labels = shift_labels.view(-1)
             # Enable model parallelism
             shift_labels = shift_labels.to(shift_logits.device)
+            print(shift_logits.dtype, shift_labels.dtype)
             loss = loss_fct(shift_logits, shift_labels)
 
         if not return_dict:
