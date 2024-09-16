@@ -89,5 +89,7 @@ trainer = TrainerWithGeneration(
     vqa=True,
 )
 
+trainer.can_return_loss = False
+
 outputs = trainer.evaluate()
 print(outputs)
