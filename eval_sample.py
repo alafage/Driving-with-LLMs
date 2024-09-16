@@ -46,7 +46,7 @@ for key in ['input_ids', 'attention_mask', 'labels', 'user_input_ids', 'user_att
 
 tokenized_input["input_ids"] = tokenized_input["input_ids"].unsqueeze(0)
 tokenized_input["attention_mask"] = tokenized_input["attention_mask"].unsqueeze(0)
-tokenized_input["labels"] = tokenized_input["labels"].unsqueeze(0).astype(torch.float32)
+tokenized_input["labels"] = tokenized_input["labels"].unsqueeze(0)
 
 
 outputs = trainer._wrap_model(model)(**tokenized_input)
